@@ -11,13 +11,13 @@ Activity and entity types emitted by the RSS-Hydro Model of Models flood workflo
 
 ## MoM workflow activity types
 
-Process types used by the MoM flood workflow (subclasses of `pt:Geoprocessing`, itself a `prov:Activity`), candidate entries for the OSPD process-type register in a placeholder namespace (`pt:` = `https://example.org/ospd/process-types/`), plus the entity type, properties, workflow run type (`mom:WorkflowRun`) and alert levels (`mom:AlertLevels`) the MoM profile uses.
+Process types used by the MoM flood workflow (subclasses of `Geoprocessing`, itself a `prov:Activity`), candidate entries for the OSPD process-type register in a placeholder namespace (`https://example.org/ospd/process-types/`), plus the entity type, properties, workflow run type (`mom:WorkflowRun`) and alert levels (`mom:AlertLevels`) the MoM profile uses.
 
 | Term | Register term (`processType`) | Generic operation |
 |---|---|---|
-| `pt:ZonalStatistics` | `https://example.org/ospd/process-types/zonal-statistics` | zonal statistics |
-| `pt:WeightedScoringAndClassification` | `https://example.org/ospd/process-types/weighted-scoring-and-classification` | index composition and classification |
-| `pt:ScoringAndProgressTracking` | `https://example.org/ospd/process-types/scoring-and-progress-tracking` | multi-source scoring and progress tracking |
+| `ZonalStatistics` | `https://example.org/ospd/process-types/zonal-statistics` | zonal statistics |
+| `WeightedScoringAndClassification` | `https://example.org/ospd/process-types/weighted-scoring-and-classification` | index composition and classification |
+| `ScoringAndProgressTracking` | `https://example.org/ospd/process-types/scoring-and-progress-tracking` | multi-source scoring and progress tracking |
 
 The schema checks that a record of one of these types states the matching `processType` and is a valid processing activity (`lu.rss-hydro.mom.processing-activity`).
 
@@ -61,13 +61,12 @@ One MoM activity, validated without a workflow. All values are illustrative.
 ```ttl
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
-@prefix pt: <https://example.org/ospd/process-types/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<https://example.org/mom/run/2026030200/aggregation> a pt:ZonalStatistics ;
+<https://example.org/mom/run/2026030200/aggregation> a <https://example.org/ospd/process-types/ZonalStatistics> ;
     rdfs:label "GFMS per-watershed aggregation" ;
-    dcterms:type pt:zonal-statistics ;
+    dcterms:type <https://example.org/ospd/process-types/zonal-statistics> ;
     prov:endedAtTime "2026-03-02T01:05:41+00:00"^^xsd:dateTime ;
     prov:generated <https://example.org/mom/run/2026030200/gfms-aggregates> ;
     prov:startedAtTime "2026-03-02T01:05:33+00:00"^^xsd:dateTime ;
@@ -127,7 +126,6 @@ x-jsonld-extra-terms:
   WeightedScoringAndClassification: https://example.org/ospd/process-types/WeightedScoringAndClassification
   ScoringAndProgressTracking: https://example.org/ospd/process-types/ScoringAndProgressTracking
 x-jsonld-prefixes:
-  pt: https://example.org/ospd/process-types/
   mom: https://rss-hydro.lu/ns/mom/
   dcterms: http://purl.org/dc/terms/
 x-bblocks-metadata:
@@ -719,9 +717,9 @@ Links to the schema:
       "@id": "dct:type",
       "@type": "@id"
     },
-    "ZonalStatistics": "pt:ZonalStatistics",
-    "WeightedScoringAndClassification": "pt:WeightedScoringAndClassification",
-    "ScoringAndProgressTracking": "pt:ScoringAndProgressTracking",
+    "ZonalStatistics": "https://example.org/ospd/process-types/ZonalStatistics",
+    "WeightedScoringAndClassification": "https://example.org/ospd/process-types/WeightedScoringAndClassification",
+    "ScoringAndProgressTracking": "https://example.org/ospd/process-types/ScoringAndProgressTracking",
     "prov": "http://www.w3.org/ns/prov#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
@@ -729,7 +727,6 @@ Links to the schema:
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "oa": "http://www.w3.org/ns/oa#",
     "dcterms": "http://purl.org/dc/terms/",
-    "pt": "https://example.org/ospd/process-types/",
     "mom": "https://rss-hydro.lu/ns/mom/",
     "@version": 1.1
   }

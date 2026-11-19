@@ -781,15 +781,14 @@ Usual run; the final alert compares with the alert of the 2026-03-01 18:00 run. 
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix mom: <https://rss-hydro.lu/ns/mom/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
-@prefix pt: <https://example.org/ospd/process-types/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix run: <https://example.org/mom/run/2026030200/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-run:aggregation a pt:ZonalStatistics ;
+run:aggregation a <https://example.org/ospd/process-types/ZonalStatistics> ;
     rdfs:label "GFMS per-watershed aggregation" ;
     dcterms:isPartOf run:workflow-run ;
-    dcterms:type pt:zonal-statistics ;
+    dcterms:type <https://example.org/ospd/process-types/zonal-statistics> ;
     prov:endedAtTime "2026-03-02T01:05:41+00:00"^^xsd:dateTime ;
     prov:generated run:gfms-aggregates ;
     prov:startedAtTime "2026-03-02T01:05:33+00:00"^^xsd:dateTime ;
@@ -817,10 +816,10 @@ run:attributes-clean a prov:Entity ;
 run:ecmwf a prov:Organization ;
     rdfs:label "ECMWF / CEMS (GloFAS)" .
 
-run:final-alert a pt:ScoringAndProgressTracking ;
+run:final-alert a <https://example.org/ospd/process-types/ScoringAndProgressTracking> ;
     rdfs:label "Final alert" ;
     dcterms:isPartOf run:workflow-run ;
-    dcterms:type pt:scoring-and-progress-tracking ;
+    dcterms:type <https://example.org/ospd/process-types/scoring-and-progress-tracking> ;
     prov:endedAtTime "2026-03-02T01:12:52+00:00"^^xsd:dateTime ;
     prov:generated run:final-alert-output ;
     prov:startedAtTime "2026-03-02T01:12:48+00:00"^^xsd:dateTime ;
@@ -1005,10 +1004,10 @@ run:gfms-aggregates a prov:Entity ;
     mom:dataTime "2026-03-02T00:00:00+00:00"^^xsd:dateTime ;
     mom:dataType "GFMS" .
 
-run:hazard a pt:WeightedScoringAndClassification ;
+run:hazard a <https://example.org/ospd/process-types/WeightedScoringAndClassification> ;
     rdfs:label "GloFAS + GFMS hazard score accumulation" ;
     dcterms:isPartOf run:workflow-run ;
-    dcterms:type pt:weighted-scoring-and-classification ;
+    dcterms:type <https://example.org/ospd/process-types/weighted-scoring-and-classification> ;
     prov:endedAtTime "2026-03-02T01:12:47+00:00"^^xsd:dateTime ;
     prov:generated run:attributes-clean,
         run:final-attributes,
@@ -1739,15 +1738,14 @@ Same run without an earlier alert; every watershed is New. All values are illust
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix mom: <https://rss-hydro.lu/ns/mom/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
-@prefix pt: <https://example.org/ospd/process-types/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix run: <https://example.org/mom/run/2026030200/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-run:aggregation a pt:ZonalStatistics ;
+run:aggregation a <https://example.org/ospd/process-types/ZonalStatistics> ;
     rdfs:label "GFMS per-watershed aggregation" ;
     dcterms:isPartOf run:workflow-run ;
-    dcterms:type pt:zonal-statistics ;
+    dcterms:type <https://example.org/ospd/process-types/zonal-statistics> ;
     prov:endedAtTime "2026-03-02T01:05:41+00:00"^^xsd:dateTime ;
     prov:generated run:gfms-aggregates ;
     prov:startedAtTime "2026-03-02T01:05:33+00:00"^^xsd:dateTime ;
@@ -1775,10 +1773,10 @@ run:attributes-clean a prov:Entity ;
 run:ecmwf a prov:Organization ;
     rdfs:label "ECMWF / CEMS (GloFAS)" .
 
-run:final-alert a pt:ScoringAndProgressTracking ;
+run:final-alert a <https://example.org/ospd/process-types/ScoringAndProgressTracking> ;
     rdfs:label "Final alert" ;
     dcterms:isPartOf run:workflow-run ;
-    dcterms:type pt:scoring-and-progress-tracking ;
+    dcterms:type <https://example.org/ospd/process-types/scoring-and-progress-tracking> ;
     prov:endedAtTime "2026-03-02T01:12:52+00:00"^^xsd:dateTime ;
     prov:generated run:final-alert-output ;
     prov:startedAtTime "2026-03-02T01:12:48+00:00"^^xsd:dateTime ;
@@ -1933,10 +1931,10 @@ run:gfms-aggregates a prov:Entity ;
     mom:dataTime "2026-03-02T00:00:00+00:00"^^xsd:dateTime ;
     mom:dataType "GFMS" .
 
-run:hazard a pt:WeightedScoringAndClassification ;
+run:hazard a <https://example.org/ospd/process-types/WeightedScoringAndClassification> ;
     rdfs:label "GloFAS + GFMS hazard score accumulation" ;
     dcterms:isPartOf run:workflow-run ;
-    dcterms:type pt:weighted-scoring-and-classification ;
+    dcterms:type <https://example.org/ospd/process-types/weighted-scoring-and-classification> ;
     prov:endedAtTime "2026-03-02T01:12:47+00:00"^^xsd:dateTime ;
     prov:generated run:attributes-clean,
         run:final-attributes,
@@ -2435,9 +2433,9 @@ Links to the schema:
       "@id": "dct:type",
       "@type": "@id"
     },
-    "ZonalStatistics": "pt:ZonalStatistics",
-    "WeightedScoringAndClassification": "pt:WeightedScoringAndClassification",
-    "ScoringAndProgressTracking": "pt:ScoringAndProgressTracking",
+    "ZonalStatistics": "https://example.org/ospd/process-types/ZonalStatistics",
+    "WeightedScoringAndClassification": "https://example.org/ospd/process-types/WeightedScoringAndClassification",
+    "ScoringAndProgressTracking": "https://example.org/ospd/process-types/ScoringAndProgressTracking",
     "mom:dataTime": {
       "@type": "xsd:dateTime"
     },
@@ -2457,7 +2455,6 @@ Links to the schema:
     "run": "https://example.org/mom/run/2026030200/",
     "dcat": "http://www.w3.org/ns/dcat#",
     "dcterms": "http://purl.org/dc/terms/",
-    "pt": "https://example.org/ospd/process-types/",
     "@version": 1.1
   }
 }

@@ -347,9 +347,9 @@
       "@id": "dct:type",
       "@type": "@id"
     },
-    "ZonalStatistics": "pt:ZonalStatistics",
-    "WeightedScoringAndClassification": "pt:WeightedScoringAndClassification",
-    "ScoringAndProgressTracking": "pt:ScoringAndProgressTracking",
+    "ZonalStatistics": "https://example.org/ospd/process-types/ZonalStatistics",
+    "WeightedScoringAndClassification": "https://example.org/ospd/process-types/WeightedScoringAndClassification",
+    "ScoringAndProgressTracking": "https://example.org/ospd/process-types/ScoringAndProgressTracking",
     "mom:dataTime": {
       "@type": "xsd:dateTime"
     },
@@ -369,7 +369,6 @@
     "run": "https://example.org/mom/run/2026030200/",
     "dcat": "http://www.w3.org/ns/dcat#",
     "dcterms": "http://purl.org/dc/terms/",
-    "pt": "https://example.org/ospd/process-types/",
     "@version": 1.1
   }
 }

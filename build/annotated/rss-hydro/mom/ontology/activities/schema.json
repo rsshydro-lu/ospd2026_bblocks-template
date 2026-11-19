@@ -84,7 +84,6 @@
     "ScoringAndProgressTracking": "https://example.org/ospd/process-types/ScoringAndProgressTracking"
   },
   "x-jsonld-prefixes": {
-    "pt": "https://example.org/ospd/process-types/",
     "mom": "https://rss-hydro.lu/ns/mom/",
     "dcterms": "http://purl.org/dc/terms/"
   },
