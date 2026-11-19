@@ -15,9 +15,9 @@ Provenance of three activities of the RSS-Hydro Model of Models (MoM) flood work
 
 | Activity | Activity type | Uses | Generates |
 |---|---|---|---|
-| Per-watershed aggregation | `mom:PerWatershedAggregation` | gridded source file, watershed shapefile, parameters | per-watershed aggregates |
-| Hazard score accumulation | `mom:HazardScoreAccumulation` | aggregates, previous summary, extra model inputs (optional), static tables, parameters | summary with duration, hazard score (`Final_Attributes`), `Attributes_Clean` |
-| Final alert | `mom:FinalAlert` | hazard score of the accumulation, hazard scores of any other sources, previous final alert (optional), admin table | final alert with status per watershed |
+| Per-watershed aggregation | `ZonalStatistics` | gridded source file, watershed shapefile, parameters | per-watershed aggregates |
+| Hazard score accumulation | `WeightedScoringAndClassification` | aggregates, previous summary, extra model inputs (optional), static tables, parameters | summary with duration, hazard score (`Final_Attributes`), `Attributes_Clean` |
+| Final alert | `ScoringAndProgressTracking` | hazard score of the accumulation, hazard scores of any other sources, previous final alert (optional), admin table | final alert with status per watershed |
 
 Each activity is `dcterms:isPartOf` one `mom:WorkflowRun` activity. In the examples, GFMS is the aggregated source and GloFAS an extra model input.
 
@@ -112,7 +112,8 @@ Usual run; the final alert compares with the alert of the 2026-03-01 18:00 run. 
   },
   {
     "id": "run:aggregation",
-    "activityType": "mom:PerWatershedAggregation",
+    "activityType": "ZonalStatistics",
+    "processType": "https://example.org/ospd/process-types/zonal-statistics",
     "name": "GFMS per-watershed aggregation",
     "startedAtTime": "2026-03-02T01:05:33Z",
     "endedAtTime": "2026-03-02T01:05:41Z",
@@ -209,7 +210,8 @@ Usual run; the final alert compares with the alert of the 2026-03-01 18:00 run. 
   },
   {
     "id": "run:hazard",
-    "activityType": "mom:HazardScoreAccumulation",
+    "activityType": "WeightedScoringAndClassification",
+    "processType": "https://example.org/ospd/process-types/weighted-scoring-and-classification",
     "name": "GloFAS + GFMS hazard score accumulation",
     "startedAtTime": "2026-03-02T01:12:40Z",
     "endedAtTime": "2026-03-02T01:12:47Z",
@@ -358,7 +360,8 @@ Usual run; the final alert compares with the alert of the 2026-03-01 18:00 run. 
   },
   {
     "id": "run:final-alert",
-    "activityType": "mom:FinalAlert",
+    "activityType": "ScoringAndProgressTracking",
+    "processType": "https://example.org/ospd/process-types/scoring-and-progress-tracking",
     "name": "Final alert",
     "startedAtTime": "2026-03-02T01:12:48Z",
     "endedAtTime": "2026-03-02T01:12:52Z",
@@ -483,7 +486,8 @@ Usual run; the final alert compares with the alert of the 2026-03-01 18:00 run. 
     },
     {
       "id": "run:aggregation",
-      "activityType": "mom:PerWatershedAggregation",
+      "activityType": "ZonalStatistics",
+      "processType": "https://example.org/ospd/process-types/zonal-statistics",
       "name": "GFMS per-watershed aggregation",
       "startedAtTime": "2026-03-02T01:05:33Z",
       "endedAtTime": "2026-03-02T01:05:41Z",
@@ -580,7 +584,8 @@ Usual run; the final alert compares with the alert of the 2026-03-01 18:00 run. 
     },
     {
       "id": "run:hazard",
-      "activityType": "mom:HazardScoreAccumulation",
+      "activityType": "WeightedScoringAndClassification",
+      "processType": "https://example.org/ospd/process-types/weighted-scoring-and-classification",
       "name": "GloFAS + GFMS hazard score accumulation",
       "startedAtTime": "2026-03-02T01:12:40Z",
       "endedAtTime": "2026-03-02T01:12:47Z",
@@ -729,7 +734,8 @@ Usual run; the final alert compares with the alert of the 2026-03-01 18:00 run. 
     },
     {
       "id": "run:final-alert",
-      "activityType": "mom:FinalAlert",
+      "activityType": "ScoringAndProgressTracking",
+      "processType": "https://example.org/ospd/process-types/scoring-and-progress-tracking",
       "name": "Final alert",
       "startedAtTime": "2026-03-02T01:12:48Z",
       "endedAtTime": "2026-03-02T01:12:52Z",
@@ -775,13 +781,15 @@ Usual run; the final alert compares with the alert of the 2026-03-01 18:00 run. 
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix mom: <https://rss-hydro.lu/ns/mom/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix pt: <https://example.org/ospd/process-types/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix run: <https://example.org/mom/run/2026030200/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-run:aggregation a mom:PerWatershedAggregation ;
+run:aggregation a pt:ZonalStatistics ;
     rdfs:label "GFMS per-watershed aggregation" ;
     dcterms:isPartOf run:workflow-run ;
+    dcterms:type pt:zonal-statistics ;
     prov:endedAtTime "2026-03-02T01:05:41+00:00"^^xsd:dateTime ;
     prov:generated run:gfms-aggregates ;
     prov:startedAtTime "2026-03-02T01:05:33+00:00"^^xsd:dateTime ;
@@ -809,9 +817,10 @@ run:attributes-clean a prov:Entity ;
 run:ecmwf a prov:Organization ;
     rdfs:label "ECMWF / CEMS (GloFAS)" .
 
-run:final-alert a mom:FinalAlert ;
+run:final-alert a pt:ScoringAndProgressTracking ;
     rdfs:label "Final alert" ;
     dcterms:isPartOf run:workflow-run ;
+    dcterms:type pt:scoring-and-progress-tracking ;
     prov:endedAtTime "2026-03-02T01:12:52+00:00"^^xsd:dateTime ;
     prov:generated run:final-alert-output ;
     prov:startedAtTime "2026-03-02T01:12:48+00:00"^^xsd:dateTime ;
@@ -996,9 +1005,10 @@ run:gfms-aggregates a prov:Entity ;
     mom:dataTime "2026-03-02T00:00:00+00:00"^^xsd:dateTime ;
     mom:dataType "GFMS" .
 
-run:hazard a mom:HazardScoreAccumulation ;
+run:hazard a pt:WeightedScoringAndClassification ;
     rdfs:label "GloFAS + GFMS hazard score accumulation" ;
     dcterms:isPartOf run:workflow-run ;
+    dcterms:type pt:weighted-scoring-and-classification ;
     prov:endedAtTime "2026-03-02T01:12:47+00:00"^^xsd:dateTime ;
     prov:generated run:attributes-clean,
         run:final-attributes,
@@ -1131,7 +1141,8 @@ Same run without an earlier alert; every watershed is New. All values are illust
   },
   {
     "id": "run:aggregation",
-    "activityType": "mom:PerWatershedAggregation",
+    "activityType": "ZonalStatistics",
+    "processType": "https://example.org/ospd/process-types/zonal-statistics",
     "name": "GFMS per-watershed aggregation",
     "startedAtTime": "2026-03-02T01:05:33Z",
     "endedAtTime": "2026-03-02T01:05:41Z",
@@ -1228,7 +1239,8 @@ Same run without an earlier alert; every watershed is New. All values are illust
   },
   {
     "id": "run:hazard",
-    "activityType": "mom:HazardScoreAccumulation",
+    "activityType": "WeightedScoringAndClassification",
+    "processType": "https://example.org/ospd/process-types/weighted-scoring-and-classification",
     "name": "GloFAS + GFMS hazard score accumulation",
     "startedAtTime": "2026-03-02T01:12:40Z",
     "endedAtTime": "2026-03-02T01:12:47Z",
@@ -1348,7 +1360,8 @@ Same run without an earlier alert; every watershed is New. All values are illust
   },
   {
     "id": "run:final-alert",
-    "activityType": "mom:FinalAlert",
+    "activityType": "ScoringAndProgressTracking",
+    "processType": "https://example.org/ospd/process-types/scoring-and-progress-tracking",
     "name": "Final alert",
     "startedAtTime": "2026-03-02T01:12:48Z",
     "endedAtTime": "2026-03-02T01:12:52Z",
@@ -1464,7 +1477,8 @@ Same run without an earlier alert; every watershed is New. All values are illust
     },
     {
       "id": "run:aggregation",
-      "activityType": "mom:PerWatershedAggregation",
+      "activityType": "ZonalStatistics",
+      "processType": "https://example.org/ospd/process-types/zonal-statistics",
       "name": "GFMS per-watershed aggregation",
       "startedAtTime": "2026-03-02T01:05:33Z",
       "endedAtTime": "2026-03-02T01:05:41Z",
@@ -1561,7 +1575,8 @@ Same run without an earlier alert; every watershed is New. All values are illust
     },
     {
       "id": "run:hazard",
-      "activityType": "mom:HazardScoreAccumulation",
+      "activityType": "WeightedScoringAndClassification",
+      "processType": "https://example.org/ospd/process-types/weighted-scoring-and-classification",
       "name": "GloFAS + GFMS hazard score accumulation",
       "startedAtTime": "2026-03-02T01:12:40Z",
       "endedAtTime": "2026-03-02T01:12:47Z",
@@ -1681,7 +1696,8 @@ Same run without an earlier alert; every watershed is New. All values are illust
     },
     {
       "id": "run:final-alert",
-      "activityType": "mom:FinalAlert",
+      "activityType": "ScoringAndProgressTracking",
+      "processType": "https://example.org/ospd/process-types/scoring-and-progress-tracking",
       "name": "Final alert",
       "startedAtTime": "2026-03-02T01:12:48Z",
       "endedAtTime": "2026-03-02T01:12:52Z",
@@ -1723,13 +1739,15 @@ Same run without an earlier alert; every watershed is New. All values are illust
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix mom: <https://rss-hydro.lu/ns/mom/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix pt: <https://example.org/ospd/process-types/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix run: <https://example.org/mom/run/2026030200/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-run:aggregation a mom:PerWatershedAggregation ;
+run:aggregation a pt:ZonalStatistics ;
     rdfs:label "GFMS per-watershed aggregation" ;
     dcterms:isPartOf run:workflow-run ;
+    dcterms:type pt:zonal-statistics ;
     prov:endedAtTime "2026-03-02T01:05:41+00:00"^^xsd:dateTime ;
     prov:generated run:gfms-aggregates ;
     prov:startedAtTime "2026-03-02T01:05:33+00:00"^^xsd:dateTime ;
@@ -1757,9 +1775,10 @@ run:attributes-clean a prov:Entity ;
 run:ecmwf a prov:Organization ;
     rdfs:label "ECMWF / CEMS (GloFAS)" .
 
-run:final-alert a mom:FinalAlert ;
+run:final-alert a pt:ScoringAndProgressTracking ;
     rdfs:label "Final alert" ;
     dcterms:isPartOf run:workflow-run ;
+    dcterms:type pt:scoring-and-progress-tracking ;
     prov:endedAtTime "2026-03-02T01:12:52+00:00"^^xsd:dateTime ;
     prov:generated run:final-alert-output ;
     prov:startedAtTime "2026-03-02T01:12:48+00:00"^^xsd:dateTime ;
@@ -1914,9 +1933,10 @@ run:gfms-aggregates a prov:Entity ;
     mom:dataTime "2026-03-02T00:00:00+00:00"^^xsd:dateTime ;
     mom:dataType "GFMS" .
 
-run:hazard a mom:HazardScoreAccumulation ;
+run:hazard a pt:WeightedScoringAndClassification ;
     rdfs:label "GloFAS + GFMS hazard score accumulation" ;
     dcterms:isPartOf run:workflow-run ;
+    dcterms:type pt:weighted-scoring-and-classification ;
     prov:endedAtTime "2026-03-02T01:12:47+00:00"^^xsd:dateTime ;
     prov:generated run:attributes-clean,
         run:final-attributes,
@@ -2411,6 +2431,13 @@ Links to the schema:
       "@type": "@id"
     },
     "name": "rdfs:label",
+    "processType": {
+      "@id": "dct:type",
+      "@type": "@id"
+    },
+    "ZonalStatistics": "pt:ZonalStatistics",
+    "WeightedScoringAndClassification": "pt:WeightedScoringAndClassification",
+    "ScoringAndProgressTracking": "pt:ScoringAndProgressTracking",
     "mom:dataTime": {
       "@type": "xsd:dateTime"
     },
@@ -2430,6 +2457,7 @@ Links to the schema:
     "run": "https://example.org/mom/run/2026030200/",
     "dcat": "http://www.w3.org/ns/dcat#",
     "dcterms": "http://purl.org/dc/terms/",
+    "pt": "https://example.org/ospd/process-types/",
     "@version": 1.1
   }
 }

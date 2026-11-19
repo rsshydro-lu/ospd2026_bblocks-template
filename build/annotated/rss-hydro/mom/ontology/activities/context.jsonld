@@ -566,6 +566,13 @@
     },
     "name": "rdfs:label",
     "links": "rdfs:seeAlso",
+    "processType": {
+      "@id": "dct:type",
+      "@type": "@id"
+    },
+    "ZonalStatistics": "pt:ZonalStatistics",
+    "WeightedScoringAndClassification": "pt:WeightedScoringAndClassification",
+    "ScoringAndProgressTracking": "pt:ScoringAndProgressTracking",
     "prov": "http://www.w3.org/ns/prov#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
@@ -573,6 +580,7 @@
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "oa": "http://www.w3.org/ns/oa#",
     "dcterms": "http://purl.org/dc/terms/",
+    "pt": "https://example.org/ospd/process-types/",
     "mom": "https://rss-hydro.lu/ns/mom/",
     "@version": 1.1
   }

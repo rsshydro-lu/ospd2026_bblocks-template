@@ -113,6 +113,8 @@ path	@id	schema
 /_anyOf/0/_oneOf/0/qualifiedAttribution/_oneOf/1/id	@id	https://ogcincubator.github.io/bblock-prov-schema/build/annotated/ogc-utils/prov-activity/schema.yaml
 /_anyOf/0/_oneOf/0/qualifiedAttribution/_oneOf/1/type		https://ogcincubator.github.io/bblock-prov-schema/build/annotated/ogc-utils/prov-activity/schema.yaml
 /_anyOf/0/_oneOf/0/qualifiedAttribution/_oneOf/1/agent	http://www.w3.org/ns/prov#agent	https://ogcincubator.github.io/bblock-prov-schema/build/annotated/ogc-utils/prov-activity/schema.yaml
+/_then/processType	http://purl.org/dc/terms/type	https://rsshydro-lu.github.io/ospd2026_bblocks-template/build/annotated/rss-hydro/mom/processing-activity/schema.yaml
 /_then/used		https://rsshydro-lu.github.io/ospd2026_bblocks-template/build/annotated/rss-hydro/mom/processing-activity/schema.yaml
 /_then/wasAssociatedWith		https://rsshydro-lu.github.io/ospd2026_bblocks-template/build/annotated/rss-hydro/mom/processing-activity/schema.yaml
 /_then/activityType		https://rsshydro-lu.github.io/ospd2026_bblocks-template/build/annotated/rss-hydro/mom/ontology/activities/schema.yaml
+/_then/_then/processType		https://rsshydro-lu.github.io/ospd2026_bblocks-template/build/annotated/rss-hydro/mom/ontology/activities/schema.yaml

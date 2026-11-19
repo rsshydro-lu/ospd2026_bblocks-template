@@ -113,3 +113,5 @@ path	@id	schema
 /qualifiedAssociation/_oneOf/1/agent	http://www.w3.org/ns/prov#agent	https://ogcincubator.github.io/bblock-prov-schema/build/annotated/ogc-utils/prov-agent/schema.yaml
 /qualifiedAssociation/_oneOf/1/hadRole	http://www.w3.org/ns/prov#hadRole	https://ogcincubator.github.io/bblock-prov-schema/build/annotated/ogc-utils/prov-agent/schema.yaml
 /qualifiedAssociation/_oneOf/1/hadPlan	http://www.w3.org/ns/prov#hadPlan	https://ogcincubator.github.io/bblock-prov-schema/build/annotated/ogc-utils/prov-agent/schema.yaml
+/processType	http://purl.org/dc/terms/type	https://rsshydro-lu.github.io/ospd2026_bblocks-template/build/annotated/rss-hydro/mom/processing-activity/schema.yaml
+/_then/processType		/github/workspace/build/annotated/rss-hydro/mom/ontology/activities/schema.yaml

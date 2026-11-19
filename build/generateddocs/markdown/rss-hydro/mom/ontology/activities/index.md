@@ -11,15 +11,15 @@ Activity and entity types emitted by the RSS-Hydro Model of Models flood workflo
 
 ## MoM workflow activity types
 
-Activity types of the MoM flood workflow (subclasses of `mom:Geoprocessing`, itself a `prov:Activity`), candidate entries for the OSPD process-type register, plus the entity type, properties, workflow run type (`mom:WorkflowRun`) and alert levels (`mom:AlertLevels`) the MoM profile uses.
+Process types used by the MoM flood workflow (subclasses of `pt:Geoprocessing`, itself a `prov:Activity`), candidate entries for the OSPD process-type register in a placeholder namespace (`pt:` = `https://example.org/ospd/process-types/`), plus the entity type, properties, workflow run type (`mom:WorkflowRun`) and alert levels (`mom:AlertLevels`) the MoM profile uses.
 
-| Term | Generic operation |
-|---|---|
-| `mom:PerWatershedAggregation` | zonal statistics |
-| `mom:HazardScoreAccumulation` | index composition and classification |
-| `mom:FinalAlert` | multi-source fusion and change detection |
+| Term | Register term (`processType`) | Generic operation |
+|---|---|---|
+| `pt:ZonalStatistics` | `https://example.org/ospd/process-types/zonal-statistics` | zonal statistics |
+| `pt:WeightedScoringAndClassification` | `https://example.org/ospd/process-types/weighted-scoring-and-classification` | index composition and classification |
+| `pt:ScoringAndProgressTracking` | `https://example.org/ospd/process-types/scoring-and-progress-tracking` | multi-source scoring and progress tracking |
 
-The schema checks that a record of one of these types is a valid processing activity (`lu.rss-hydro.mom.processing-activity`).
+The schema checks that a record of one of these types states the matching `processType` and is a valid processing activity (`lu.rss-hydro.mom.processing-activity`).
 
 ## Examples
 
@@ -29,7 +29,8 @@ One MoM activity, validated without a workflow. All values are illustrative.
 ```json
 {
   "id": "https://example.org/mom/run/2026030200/aggregation",
-  "activityType": "mom:PerWatershedAggregation",
+  "activityType": "ZonalStatistics",
+  "processType": "https://example.org/ospd/process-types/zonal-statistics",
   "name": "GFMS per-watershed aggregation",
   "startedAtTime": "2026-03-02T01:05:33Z",
   "endedAtTime": "2026-03-02T01:05:41Z",
@@ -45,7 +46,8 @@ One MoM activity, validated without a workflow. All values are illustrative.
 {
   "@context": "https://rsshydro-lu.github.io/ospd2026_bblocks-template/build/annotated/rss-hydro/mom/ontology/activities/context.jsonld",
   "id": "https://example.org/mom/run/2026030200/aggregation",
-  "activityType": "mom:PerWatershedAggregation",
+  "activityType": "ZonalStatistics",
+  "processType": "https://example.org/ospd/process-types/zonal-statistics",
   "name": "GFMS per-watershed aggregation",
   "startedAtTime": "2026-03-02T01:05:33Z",
   "endedAtTime": "2026-03-02T01:05:41Z",
@@ -57,13 +59,15 @@ One MoM activity, validated without a workflow. All values are illustrative.
 
 #### ttl
 ```ttl
-@prefix mom: <https://rss-hydro.lu/ns/mom/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix pt: <https://example.org/ospd/process-types/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<https://example.org/mom/run/2026030200/aggregation> a mom:PerWatershedAggregation ;
+<https://example.org/mom/run/2026030200/aggregation> a pt:ZonalStatistics ;
     rdfs:label "GFMS per-watershed aggregation" ;
+    dcterms:type pt:zonal-statistics ;
     prov:endedAtTime "2026-03-02T01:05:41+00:00"^^xsd:dateTime ;
     prov:generated <https://example.org/mom/run/2026030200/gfms-aggregates> ;
     prov:startedAtTime "2026-03-02T01:05:33+00:00"^^xsd:dateTime ;
@@ -77,10 +81,37 @@ One MoM activity, validated without a workflow. All values are illustrative.
 
 ```yaml
 $schema: https://json-schema.org/draft/2020-12/schema
-description: A MoM activity is a processing activity of one of the MoM activity types.
+description: A MoM activity is a processing activity of one of the process types,
+  linked to its register term.
 allOf:
 - $ref: https://rsshydro-lu.github.io/ospd2026_bblocks-template/build/annotated/rss-hydro/mom/processing-activity/schema.yaml
 - $ref: '#/$defs/isMomActivity'
+- required:
+  - processType
+- if:
+    properties:
+      activityType:
+        const: ZonalStatistics
+  then:
+    properties:
+      processType:
+        const: https://example.org/ospd/process-types/zonal-statistics
+- if:
+    properties:
+      activityType:
+        const: WeightedScoringAndClassification
+  then:
+    properties:
+      processType:
+        const: https://example.org/ospd/process-types/weighted-scoring-and-classification
+- if:
+    properties:
+      activityType:
+        const: ScoringAndProgressTracking
+  then:
+    properties:
+      processType:
+        const: https://example.org/ospd/process-types/scoring-and-progress-tracking
 $defs:
   isMomActivity:
     required:
@@ -88,10 +119,15 @@ $defs:
     properties:
       activityType:
         enum:
-        - mom:PerWatershedAggregation
-        - mom:HazardScoreAccumulation
-        - mom:FinalAlert
+        - ZonalStatistics
+        - WeightedScoringAndClassification
+        - ScoringAndProgressTracking
+x-jsonld-extra-terms:
+  ZonalStatistics: https://example.org/ospd/process-types/ZonalStatistics
+  WeightedScoringAndClassification: https://example.org/ospd/process-types/WeightedScoringAndClassification
+  ScoringAndProgressTracking: https://example.org/ospd/process-types/ScoringAndProgressTracking
 x-jsonld-prefixes:
+  pt: https://example.org/ospd/process-types/
   mom: https://rss-hydro.lu/ns/mom/
   dcterms: http://purl.org/dc/terms/
 x-bblocks-metadata:
@@ -679,6 +715,13 @@ Links to the schema:
     },
     "name": "rdfs:label",
     "links": "rdfs:seeAlso",
+    "processType": {
+      "@id": "dct:type",
+      "@type": "@id"
+    },
+    "ZonalStatistics": "pt:ZonalStatistics",
+    "WeightedScoringAndClassification": "pt:WeightedScoringAndClassification",
+    "ScoringAndProgressTracking": "pt:ScoringAndProgressTracking",
     "prov": "http://www.w3.org/ns/prov#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
@@ -686,6 +729,7 @@ Links to the schema:
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "oa": "http://www.w3.org/ns/oa#",
     "dcterms": "http://purl.org/dc/terms/",
+    "pt": "https://example.org/ospd/process-types/",
     "mom": "https://rss-hydro.lu/ns/mom/",
     "@version": 1.1
   }

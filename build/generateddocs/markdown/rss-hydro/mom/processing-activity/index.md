@@ -13,6 +13,8 @@ Generic W3C PROV profile of one geospatial processing activity.
 
 Profile of `ogc.ogc-utils.prov-activity`. Requires `activityType`, `name`, `startedAtTime`, `endedAtTime`, `used`, `generated` and `wasAssociatedWith`.
 
+Optional `processType` links the activity to a registered process type (`dcterms:type`).
+
 Inline inputs need `generatedAtTime` or `dcterms:hasVersion`; inline software agents need `dcterms:hasVersion`.
 
 ## Examples
@@ -105,6 +107,12 @@ required:
 - generated
 - wasAssociatedWith
 properties:
+  processType:
+    description: IRI of the registered process type (dcterms:type).
+    type: string
+    format: uri
+    x-jsonld-id: http://purl.org/dc/terms/type
+    x-jsonld-type: '@id'
   used:
     anyOf:
     - $ref: '#/$defs/datedOrVersioned'
@@ -731,6 +739,10 @@ Links to the schema:
     },
     "name": "rdfs:label",
     "links": "rdfs:seeAlso",
+    "processType": {
+      "@id": "dct:type",
+      "@type": "@id"
+    },
     "prov": "http://www.w3.org/ns/prov#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
