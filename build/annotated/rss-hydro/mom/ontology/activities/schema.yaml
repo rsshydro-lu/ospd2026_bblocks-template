@@ -1,0 +1,23 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+description: A MoM activity is a processing activity of one of the MoM activity types.
+allOf:
+- $ref: https://rsshydro-lu.github.io/ospd2026_bblocks-template/build/annotated/rss-hydro/mom/processing-activity/schema.yaml
+- $ref: '#/$defs/isMomActivity'
+$defs:
+  isMomActivity:
+    required:
+    - activityType
+    properties:
+      activityType:
+        enum:
+        - mom:PerWatershedAggregation
+        - mom:HazardScoreAccumulation
+        - mom:FinalAlert
+x-jsonld-prefixes:
+  mom: https://rss-hydro.lu/ns/mom/
+  dcterms: http://purl.org/dc/terms/
+x-bblocks-metadata:
+  itemIdentifier: lu.rss-hydro.mom.ontology.activities
+  register: https://rsshydro-lu.github.io/ospd2026_bblocks-template/build/register.json
+  version: '0.1'
+  dateOfLastChange: '2026-10-14'
