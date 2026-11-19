@@ -335,6 +335,12 @@ docker run --rm --pull=always -v "$(pwd):/register" -p 9090:9090 ghcr.io/ogcincu
 * The syntax for `-v "$(pwd):/register"` may vary depending on your operating system
 * `-p 9090:9090` will publish the Viewer on port 9090 on your machine
 
+#### Offline validation
+
+`local-build/` validates JSON records against a building block (JSON Schema, JSON-LD uplift, SHACL) with no
+network, e.g. from a scheduled job: run `local-build/fetch-imports.sh` once, then
+`local-build/validate.sh record.json`. See [local-build/README.md](local-build/README.md).
+
 ## Tools
 
 The following tools are useful for getting each component working during development:
